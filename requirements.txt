@@ -6,3 +6,10 @@ pytest-testconfig
 pytest-logger
 jsonschema
 PyHamcrest
+certifi==2018.11.29
+chardet==3.0.4
+idna==2.8
+six==1.12.0
+urllib3
+websocket-client==0.55.0
+signalrcore

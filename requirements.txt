@@ -1,4 +1,8 @@
-selenium
-pytest
 requests
+pytest
+allure-pytest
+pytest-rerunfailures
+pytest-testconfig
+pytest-logger
+jsonschema
 

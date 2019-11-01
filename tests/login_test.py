@@ -1,5 +1,5 @@
 import requests
-from
+from hamcrest import *
 
 
 class TestApi:
@@ -31,5 +31,12 @@ class TestApi:
     def test_get_ivan_asterisk(self):
         url = 'https://tester.sphaera-cti-service.stage.sphaera.ru/api/operators/9cfe3583-cc70-44b9-b80d-6bed59f68f1a'
         r = requests.get(url, verify=False, data={}, headers={"Content-Type": "application/json"})
-        assert 200 == r.status_code
-        print(r.status_code)
+        assert r.status_code == 200
+        if 'userName' in r.json() and r.json()['userName'] == 'Иван Астерикс':
+            print('Received Answer Operator Ivan is correctly')
+        else:
+            print('response JSON and receive answer is not same. ERROR')
+            print(r.json())
+
+
+

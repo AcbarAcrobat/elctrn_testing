@@ -5,4 +5,4 @@ pytest-rerunfailures
 pytest-testconfig
 pytest-logger
 jsonschema
-
+PyHamcrest

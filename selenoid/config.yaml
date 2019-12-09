@@ -1,0 +1,14 @@
+url: "http://vm-biocad-filestorage.axmor.nsk:8085/"
+implicit_timeout: 5
+
+capabilities:
+    browserName: 'chrome'
+    unexpectedAlertBehaviour: 'accept'
+    enableVNC: True
+    screenResolution: "1920x1366x24"
+    # enableVideo: true
+    # videoFrameRate: 60
+    loggingPrefs:
+        browser: "INFO"
+    chromeOptions:
+        args: ['--disable-infobars', '--window-size=1920,1080']

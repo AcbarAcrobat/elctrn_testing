@@ -4,5 +4,4 @@ venv/
 simple_config.ini
 .git/
 __pycache__/
-
-
+proto-cti-operator/

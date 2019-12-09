@@ -5,5 +5,6 @@ pytest-testconfig
 pytest-logger
 jsonschema
 urllib3
-
+invoke
+selenium
 

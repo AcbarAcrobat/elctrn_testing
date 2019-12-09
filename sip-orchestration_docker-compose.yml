@@ -1,0 +1,73 @@
+version: '3.7'
+services:
+  cti-service:
+    image: v-ccng-stage-nexus.stage.sphaera.ru:8084/sphaera.cti.service:latest
+    environment:
+      - ASPNETCORE_URLS=http://*:5000
+      - TransitSettings__RabbitMqAddress=rabbitmq:5672
+      - CTIOptions__PhoneSystemGatewayUri=http://gateway:5002
+      - ConnectionStrings__CTIConnection=Host=db;Database=CTI;Username=postgres;Password=1
+      - RedisOptions__Configuration=redis
+    ports:
+      - "5000:5000"
+    depends_on:
+      - rabbitmq
+      - db
+  gateway:
+    image: v-ccng-stage-nexus.stage.sphaera.ru:8084/sphaera.phone-system-gateway:latest
+    environment:
+      - ConnectionStrings__PhoneSystemGatewayDatabaseConnection=Host=db;Database=PhoneSystemGateway;Username=postgres;Password=1
+      - JaegerTracingOptions__JaegerAgentHost=jaeger
+      - TransitSettings__RabbitMqAddress=rabbitmq:5672
+      - ASPNETCORE_URLS=http://*:5002
+      - SipProxyOptions__Ip=tester-sip-kamailio.stage.sphaera.ru
+      - AsteriskOptions__Ip=tester-sip-asterisk-01.stage.sphaera.ru
+    ports:
+      - "5002:5002"
+    depends_on:
+      - rabbitmq
+  db:
+    image: postgres:11
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: 1
+    ports:
+      - "5432:5432"
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    ports:
+      - "5775:5775/udp"
+      - "6831:6831/udp"
+      - "6832:6832/udp"
+      - "5778:5778"
+      - "16686:16686"
+      - "14268:14268"
+      - "9411:9411"
+  rabbitmq:
+    image: "rabbitmq:3.7-management"
+    environment:
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+  redis:
+    image: redis:5.0.6-alpine
+    container_name: redis
+    restart: always
+    ports:
+      - 6379:6379
+  selenoid:
+    image: aerokube/selenoid:latest-release
+    ports:
+      - "4444:4444"
+    depends_on:
+      - cti-service
+      - gateway
+    environment:
+      - TZ=Europe/Moscow
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./config/:/etc/selenoid/:ro
+

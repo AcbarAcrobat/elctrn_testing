@@ -36,5 +36,17 @@ class Application:
         except TimeoutException:
             return False
 
+    def click_when_availible(self):
+        wd = self.wd
+        try:
+            accept_button = WebDriverWait(wd, 10) \
+                .until(EC.element_to_be_clickable((By.XPATH, "//button[contains(@class, 'inbox')])[2]")))
+            if accept_button.is_visible:
+                self.click_when_availible()
+            else:
+                pass
+        except TimeoutException:
+            return False
+
     def destroy(self):
         self.wd.quit()

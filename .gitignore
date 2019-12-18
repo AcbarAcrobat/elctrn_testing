@@ -5,3 +5,8 @@ simple_config.ini
 .git/
 __pycache__/
 proto-cti-operator/
+tests/utils
+selenoid
+config
+common
+/utils/main.py

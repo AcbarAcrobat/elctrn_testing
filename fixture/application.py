@@ -20,11 +20,11 @@ class Application:
         wd = self.wd
         wd.get('http://localhost:4000/')
 
-    def select_operator(self):
+    def login(self):
         wd = self.wd
         wd.get('http://localhost:4000/')
         wd.find_element(By.XPATH, "//select[@name]").click()
-        wd.find_element(By.XPATH, "//option[@value=666]").click()
+        wd.find_element(By.XPATH, "//option[@value=108]").click()
         wd.find_element(By.XPATH, "//button").click()
 
     def header_page(self):
@@ -32,16 +32,17 @@ class Application:
         try:
             accept_button = WebDriverWait(wd, 10) \
                 .until(EC.presence_of_element_located((By.XPATH, "(//button[contains(@class, 'inbox')])[2]")))
-            return accept_button.is_visible()
+            return accept_button.is_displayed()
         except TimeoutException:
             return False
 
     def click_when_availible(self):
         wd = self.wd
         try:
-            accept_button = WebDriverWait(wd, 10) \
-                .until(EC.element_to_be_clickable((By.XPATH, "//button[contains(@class, 'inbox')])[2]")))
-            if accept_button.is_visible:
+            accept_button = WebDriverWait(wd, 5) \
+                .until(EC.element_to_be_clickable((By.XPATH, "(//button[contains(@class, 'inbox')])[2]")))
+            if accept_button.is_enabled():
+                wd.find_element(By.XPATH, "(//button[contains(@class, 'inbox')])[2]").click()
                 self.click_when_availible()
             else:
                 pass

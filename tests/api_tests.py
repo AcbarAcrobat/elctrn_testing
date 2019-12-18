@@ -4,7 +4,8 @@ import urllib3
 import logging
 import os
 ENV = os.environ.get("CI_COMMIT_REF_SLUG")
-url = "https://$ENV.sphaera-cti-service.stage.sphaera.ru"
+#url = "https://{CI_COMMIT_REF_SLUG}.sphaera-cti-service.stage.sphaera.ru"
+url = "stage.sphaera-cti-service.stage.sphaera.ru"
 
 
 class TestApi:

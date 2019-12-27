@@ -10,3 +10,4 @@ selenoid
 config
 common
 /utils/main.py
+asterisk.common/

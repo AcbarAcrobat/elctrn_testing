@@ -43,6 +43,7 @@ class Application:
                 .until(EC.element_to_be_clickable((By.XPATH, "(//button[contains(@class, 'inbox')])[2]")))
             if accept_button.is_enabled():
                 wd.find_element(By.XPATH, "(//button[contains(@class, 'inbox')])[2]").click()
+                time.sleep(2)
                 self.click_when_availible()
             else:
                 pass

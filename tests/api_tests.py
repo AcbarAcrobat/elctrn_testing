@@ -6,7 +6,7 @@ import os
 from support.config import config
 ENV = os.environ.get("CI_COMMIT_REF_SLUG")
 #url = "https://{CI_COMMIT_REF_SLUG}.sphaera-cti-service.stage.sphaera.ru"
-url = "config.get('url')"
+url = config.get('url')
 
 
 class TestApi:
